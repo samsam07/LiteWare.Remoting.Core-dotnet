@@ -39,7 +39,7 @@ public class RemoteService : IRemoteServiceMediator, IRemoteCallDispatcher
     /// </summary>
     /// <param name="messagePacker">A <see cref="MessagePacker"/> to pack and unpack remote messages.</param>
     /// <exception cref="ArgumentNullException">The <paramref name="messagePacker"/> is <code>null</code>.</exception>
-    internal RemoteService(MessagePacker messagePacker)
+    protected internal RemoteService(MessagePacker messagePacker)
     {
         _messagePacker = messagePacker ?? throw new ArgumentNullException(nameof(messagePacker));
     }
