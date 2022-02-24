@@ -9,12 +9,12 @@
     <Version>0.1.0</Version>
     <Authors>Hisham Maudarbocus</Authors>
     <Company>LiteWare</Company>
-    <Description>.NET core implementation of LiteWare remote call library</Description>
+    <Description>LiteWare core remoting library for .NET platforms</Description>
     <Copyright>Copyright (c) 2022 Hisham Maudarbocus</Copyright>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/samsam07/LiteWare.Remoting.Core-dotnet</RepositoryUrl>
     <PackageReleaseNotes>Initial code commit</PackageReleaseNotes>
-    <PackageTags>core; rpc; rmi; server; client; remote</PackageTags>
+    <PackageTags>rpc; rmi; core-library; remoting</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
