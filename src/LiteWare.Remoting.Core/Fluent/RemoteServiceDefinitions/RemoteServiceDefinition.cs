@@ -8,13 +8,13 @@ internal sealed class RemoteServiceDefinition : IRemoteServiceDefinition,
     IWithRemoteCallHandler,
         IWithCommandInvoker,
         IOptionalAsSyncAsync,
-    IWithNetworking,
+    IWithTransport,
     IWithMarshaller,
     IWithCreate
 {
     private readonly RemoteServiceBuilder _remoteServiceBuilder = new();
 
-    public IAlternativeWithRemoteCallHandlerOrWithNetworking WithRemoteCallDispatcher(RemoteCallDispatcherBuilder remoteCallDispatcherBuilder)
+    public IAlternativeWithRemoteCallHandlerOrWithTransport WithRemoteCallDispatcher(RemoteCallDispatcherBuilder remoteCallDispatcherBuilder)
     {
         _remoteServiceBuilder.RemoteCallDispatcherBuilder = remoteCallDispatcherBuilder;
         return this;
@@ -26,19 +26,19 @@ internal sealed class RemoteServiceDefinition : IRemoteServiceDefinition,
         return this;
     }
 
-    public IAlternativeWithRemoteCallHandlerOrWithNetworking HavingRequestTimeout(TimeSpan timeout)
+    public IAlternativeWithRemoteCallHandlerOrWithTransport HavingRequestTimeout(TimeSpan timeout)
     {
         _remoteServiceBuilder.RemoteCallDispatcherBuilder!.RequestTimeout = timeout;
         return this;
     }
 
-    public IAlternativeWithRemoteCallHandlerOrWithNetworking HavingRequestTimeout(double milliseconds)
+    public IAlternativeWithRemoteCallHandlerOrWithTransport HavingRequestTimeout(double milliseconds)
     {
         _remoteServiceBuilder.RemoteCallDispatcherBuilder!.RequestTimeout = TimeSpan.FromMilliseconds(milliseconds);
         return this;
     }
 
-    public IWithNetworking WithRemoteCallHandler(RemoteCallHandlerBuilder remoteCallHandlerBuilder)
+    public IWithTransport WithRemoteCallHandler(RemoteCallHandlerBuilder remoteCallHandlerBuilder)
     {
         _remoteServiceBuilder.RemoteCallHandlerBuilder = remoteCallHandlerBuilder;
         return this;
@@ -56,21 +56,21 @@ internal sealed class RemoteServiceDefinition : IRemoteServiceDefinition,
         return this;
     }
 
-    public IWithNetworking Synchronously()
+    public IWithTransport Synchronously()
     {
         _remoteServiceBuilder.RemoteCallHandlerBuilder!.HandleAsynchronously = false;
         return this;
     }
 
-    public IWithNetworking Asynchronously()
+    public IWithTransport Asynchronously()
     {
         _remoteServiceBuilder.RemoteCallHandlerBuilder!.HandleAsynchronously = true;
         return this;
     }
 
-    public IWithMarshaller OnNetwork(RemoteNetworkBuilder remoteNetworkBuilder)
+    public IWithMarshaller OnTransport(RemoteTransportBuilder remoteTransportBuilder)
     {
-        _remoteServiceBuilder.RemoteNetworkBuilder = remoteNetworkBuilder;
+        _remoteServiceBuilder.RemoteTransportBuilder = remoteTransportBuilder;
         return this;
     }
 

@@ -16,8 +16,8 @@ It is the main service of the framework and is broken down into 4 sub-systems:
 
 ![RemoteServie overview](docs/images/RemoteService-Overview.png)
 
-1. The transport (a.k.a `RemoteNetwork`)  
-   It is responsible for serialization and sending/receiving of payloads over a network.
+1. The transport (a.k.a `RemoteTransport`)  
+   It is responsible for serialization and sending/receiving of payloads over a transport/network.
 
 2. The service mediator  
    It is responsible for payload marshalling and its distribution across the other sub-systems.
@@ -38,16 +38,16 @@ Any library implementing LiteWare.Remoting.Core should implement the following:
 
 The `RemoteService` requires an implementation of `IMarshaller` to convert remote calls and requests to and from an array of bytes.
 
-### 2. Custom transport (`RemoteNetwork`, `IMessageSerializer` and `RemoteNetworkBuilder`)
+### 2. Custom transport (`RemoteTransport`, `IMessageSerializer` and `RemoteTransportBuilder`)
 
-The transport is represented by the abstract `RemoteNetwork` class and is responsible for the exchange of payloads between remote services.
+The transport is represented by the abstract `RemoteTransport` class and is responsible for the exchange of payloads between remote services.
 This class should be extended and specialized to use a specific communication protocol.
 
-The `RemoteNetwork` is also responsible for the serialization and deserialization of payloads and thus,requires that an implementation of `IMessageSerializer` is provided during its construction.
+The `RemoteTransport` is also responsible for the serialization and deserialization of payloads and thus,requires that an implementation of `IMessageSerializer` is provided during its construction.
 `IMessageSerializer` is different from `IMarshaller`. The latter serializes remote objects (`RemoteCall` and `RemoteResponse`) while the former serializes framed payloads (`Message`) containing remote objects.
 
-Implementations of the `RemoteNetwork` class should prevent direct initialization through constructors.
-A derivation of the `RemoteNetworkBuilder` class should instead be used to build new instances as this allows for a proper configuration of the network in a remote service.
+Implementations of the `RemoteTransport` class should prevent direct initialization through constructors.
+A derivation of the `RemoteTransportBuilder` class should instead be used to build new instances as this allows for a proper configuration of the transport in a remote service.
 
 ### 3. Custom command invoking
 

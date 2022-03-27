@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <Folder Include="RemoteCallControllersTests\" />
-    <Folder Include="TransportTests\" />
   </ItemGroup>
 
   <ItemGroup>

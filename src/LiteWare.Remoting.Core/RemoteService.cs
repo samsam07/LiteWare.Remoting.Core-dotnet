@@ -12,9 +12,9 @@ public class RemoteService : IRemoteServiceMediator, IRemoteCallDispatcher
     private readonly MessagePacker _messagePacker;
 
     /// <summary>
-    /// Gets the service underlying <see cref="RemoteNetwork"/> used to send and receive remote messages.
+    /// Gets the service underlying <see cref="RemoteTransport"/> used to send and receive remote messages.
     /// </summary>
-    public RemoteNetwork? Network { get; internal set; }
+    public RemoteTransport? Transport { get; internal set; }
 
     /// <summary>
     /// Gets the remote call dispatcher of the remote service.
@@ -38,24 +38,24 @@ public class RemoteService : IRemoteServiceMediator, IRemoteCallDispatcher
 
     void IRemoteServiceMediator.PackAndSend(RemoteCall remoteCall)
     {
-        if (Network is null)
+        if (Transport is null)
         {
-            throw new InvalidOperationException("The service network was not properly initialized.");
+            throw new InvalidOperationException("The service transport was not properly initialized.");
         }
 
         Message message = _messagePacker.PackRemoteCall(remoteCall);
-        Network.Send(message);
+        Transport.Send(message);
     }
 
     void IRemoteServiceMediator.PackAndSend(RemoteResponse remoteResponse)
     {
-        if (Network is null)
+        if (Transport is null)
         {
-            throw new InvalidOperationException("The service network was not properly initialized.");
+            throw new InvalidOperationException("The service transport was not properly initialized.");
         }
 
         Message message = _messagePacker.PackRemoteResponse(remoteResponse);
-        Network.Send(message);
+        Transport.Send(message);
     }
 
     private void HandleReceivedCall(Message message)

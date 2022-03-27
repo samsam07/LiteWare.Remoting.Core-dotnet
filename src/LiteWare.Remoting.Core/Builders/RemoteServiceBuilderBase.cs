@@ -22,9 +22,9 @@ public abstract class RemoteServiceBuilderBase<TRemoteService> where TRemoteServ
     public RemoteCallHandlerBuilder? RemoteCallHandlerBuilder { get; set; }
 
     /// <summary>
-    /// Gets or sets the builder that builds an instance of <see cref="RemoteNetwork"/> used by the remote service to build.
+    /// Gets or sets the builder that builds an instance of <see cref="RemoteTransport"/> used by the remote service to build.
     /// </summary>
-    public RemoteNetworkBuilder? RemoteNetworkBuilder { get; set; }
+    public RemoteTransportBuilder? RemoteTransportBuilder { get; set; }
 
     /// <summary>
     /// Gets or sets the <see cref="IMarshaller"/> used by the remote service to build.
@@ -40,7 +40,7 @@ public abstract class RemoteServiceBuilderBase<TRemoteService> where TRemoteServ
     /// -or-
     /// Both <see cref="RemoteCallDispatcherBuilder"/> and <see cref="RemoteCallHandlerBuilder"/> are null.
     /// -or-
-    /// <see cref="RemoteNetworkBuilder"/> is null.
+    /// <see cref="RemoteTransportBuilder"/> is null.
     /// </exception>
     public TRemoteService Build()
     {
@@ -57,14 +57,14 @@ public abstract class RemoteServiceBuilderBase<TRemoteService> where TRemoteServ
             throw new InvalidOperationException("Cannot configure a remote service where both remote call dispatching and remote call handling are disabled.");
         }
 
-        if (RemoteNetworkBuilder is null)
+        if (RemoteTransportBuilder is null)
         {
-            throw new InvalidOperationException("Remote network was not initialized.");
+            throw new InvalidOperationException("Remote transport was not initialized.");
         }
 
         remoteService.RemoteCallDispatcher = RemoteCallDispatcherBuilder?.Build(remoteService);
         remoteService.RemoteCallHandler = RemoteCallHandlerBuilder?.Build(remoteService);
-        remoteService.Network = RemoteNetworkBuilder!.Build(remoteService);
+        remoteService.Transport = RemoteTransportBuilder!.Build(remoteService);
 
         return remoteService;
     }
