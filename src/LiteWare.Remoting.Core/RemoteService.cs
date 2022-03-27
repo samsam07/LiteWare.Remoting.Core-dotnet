@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using LiteWare.Remoting.Core.Fluent;
 using LiteWare.Remoting.Core.RemoteCallControllers;
 using LiteWare.Remoting.Core.Transport;
 
@@ -10,13 +9,6 @@ namespace LiteWare.Remoting.Core;
 /// </summary>
 public class RemoteService : IRemoteServiceMediator, IRemoteCallDispatcher
 {
-    /// <summary>
-    /// Configures a new remote service using a fluent language definition.
-    /// </summary>
-    /// <returns>The entry point for the fluent remote service definition.</returns>
-    public static IFluentRemoteService Configure() =>
-        FluentRemoteService.Configure();
-
     private readonly MessagePacker _messagePacker;
 
     /// <summary>
